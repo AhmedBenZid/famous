@@ -13,6 +13,6 @@ CREATE TABLE user(
     role varchar(20) NOT NULL
     )
     ; 
-INSERT INTO user (email,password,role) VALUES ("admin","admin","admin");
+INSERT INTO user (email,password,role) VALUES ("admin","$2a$10$dgYzs8plLOkR7lM0UHhQt.YfUVqvDWqH.5ovNp.IvRXT4DgX47jP2","admin");
 
 
