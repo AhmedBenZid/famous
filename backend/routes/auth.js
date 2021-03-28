@@ -121,9 +121,17 @@ router.put('/updateuser', isAuth, async (req, res) => {
 //path /users/
 //method delete
 //@private
-
-
-
-
+router.delete('/', isAdmin, async (req, res) => {
+    const { id } = req.body;
+    try {
+        await db.query('delete from user where id =?', id, (err, data) => {
+            if (err) throw err;
+            res.status(200).send({ msg: "User deleted...." })
+        });
+    } catch (error) {
+        res.status(500).send("Server Error");
+        console.error(error);
+    }
+});
 
 module.exports = router;
