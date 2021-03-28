@@ -16,26 +16,26 @@ router.post("/register", async (req, res) => {
     const { firstName, lastName, adresse, tel } = req.body;
     try {
         let email = req.body.email.toLowerCase();
-        await db.query("select email from user where email=?", [email], (err, data) => {
+        await db.query("select email from user where email=?", [email], async (err, data) => {
             if (err) {
                 console.error(err);
             } else if (data.length > 0) {
                 return res.status(400).send({ errors: [{ msg: 'User already exists' }] });
             };
+            let password = req.body.password;
+
+            const salt = await bcryte.genSalt(10);
+            password = await bcryte.hash(password, salt);
+            let user = ([
+                firstName, lastName, email, password, adresse, tel
+            ]);
+
+            await db.query("insert into user (firstName ,lastName, email, password,address,role) values (?,?,?,?,?,'user')",
+                user, (err, data) => {
+                    if (err) throw err;
+                    res.status(200).json({ msg: "User registred...." });
+                });
         });
-        let password = req.body.password;
-
-        const salt = await bcryte.genSalt(10);
-        password = await bcryte.hash(password, salt);
-        let user = ([
-            firstName, lastName, email, password, adresse, tel
-        ]);
-
-        await db.query("insert into user (firstName ,lastName, email, password,address,role) values (?,?,?,?,?,'user')",
-            user, (err, data) => {
-                if (err) throw err;
-                res.status(200).json({ msg: "User registred...." });
-            });
     } catch (error) {
         res.status(500).send("Server Error");
         console.error(error.message);
@@ -142,24 +142,25 @@ router.post("/addagent", isAdmin, async (req, res) => {
 
     try {
         let email = req.body.email.toLowerCase();
-        await db.query("select email from user where email=?", [email], (err, data) => {
+        await db.query("select email from user where email=?", [email], async (err, data) => {
             if (err) {
                 console.error(err);
             } else if (data.length > 0) {
                 return res.status(400).send({ errors: [{ msg: 'Agent already exists' }] });
             };
+            let password = req.body.password;
+
+            const salt = await bcryte.genSalt(10);
+            password = await bcryte.hash(password, salt);
+            let agent = ([email, password]);
+
+            await db.query("insert into user (email,password,role) values (?,?,'agent')",
+                agent, (err, data) => {
+                    if (err) throw err;
+                    res.status(200).json({ msg: "Agent Added....", agent });
+                });
         });
-        let password = req.body.password;
 
-        const salt = await bcryte.genSalt(10);
-        password = await bcryte.hash(password, salt);
-        let agent = ([email, password]);
-
-        await db.query("insert into user (email,password,role) values (?,?,'agent')",
-            agent, (err, data) => {
-                if (err) throw err;
-                res.status(200).json({ msg: "Agent Added....", agent });
-            });
     } catch (error) {
         res.status(500).send("Server Error");
         console.error(error.message);
