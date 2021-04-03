@@ -9,11 +9,15 @@ const db = require("./config/dbconnection");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
-    res.send('<h1>hello</h1>');
-})
 
+//Use the users Routes
 app.use('/users', require("./routes/auth"));
+
+//Use the Packs Routes
+app.use('/packs', require("./routes/pack"));
+
+//Use the Reservations Routes
+app.use('/reservations', require("./routes/reservations"));
 
 
 
