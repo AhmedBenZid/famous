@@ -16,9 +16,9 @@ function NavBar() {
         <Navbar bg="dark" variant="dark" sticky="top">
             <Navbar.Brand href="#home">Famous Picture</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Packs</Nav.Link>
-                <Nav.Link href="#pricing">About-Us</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/packs">Packs</Nav.Link>
+                <Nav.Link href="/aboutus">About-Us</Nav.Link>
             </Nav>
 
             {(!isAuth) ? (<div >

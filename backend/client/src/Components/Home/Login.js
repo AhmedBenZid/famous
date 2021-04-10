@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch } from "react-redux";
 import { loginUser } from '../../JS/Actions/authActions';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
     const [show, setShow] = useState(false);
@@ -14,11 +15,13 @@ const Login = () => {
     }
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
+    const history = useHistory();
     const handleSubmit = () => {
         const formData = {
             email, password
         }
         dispatch(loginUser(formData));
+        history.push('/dashboard');
         handleClose()
     }
     return (
