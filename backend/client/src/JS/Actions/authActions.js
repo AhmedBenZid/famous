@@ -46,6 +46,30 @@ export const registerUser = (newUser) => async (dispatch) => {
     }
 };
 
+// Get auth user
+export const getAuthUser = () => async (dispatch) => {
+    dispatch(userLoading());
+
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        const res = await axios.get('/users/me', config);
+        dispatch({
+            type: GET_AUTH_USER,
+            payload: res.data
+        });
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: AUTH_ERRORS,
+        });
+    }
+};
+
 // Login User
 export const loginUser = (formData) => async (dispatch) => {
     dispatch(userLoading());

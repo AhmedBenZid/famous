@@ -64,7 +64,8 @@ router.get('/me', isAuth, async (req, res) => {
     try {
         await db.query('select * from user where id =?', id, (err, data) => {
             if (err) throw err;
-            res.status(200).send({ msg: "User info....", data })
+            const user = data[0]
+            res.status(200).send({ msg: "User info....", user })
         });
     } catch (error) {
         res.status(500).send("Server Error");
