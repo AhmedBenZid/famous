@@ -30,7 +30,7 @@ CREATE TABLE packs (
 /* Creation du table Reservations */
 CREATE TABLE reservations(
         id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        dateReservation varchar(255),
+        dateReservation DATE,
         status varchar(255),
         clientId INT(4),
         packId INT(4)

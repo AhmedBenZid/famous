@@ -82,18 +82,22 @@ router.post('/login', async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ msg: "Please provide an email or password" });
         }
-        await db.query("SELECT * FROM user WHERE email=?", [email], async (err, data) => {
-            if (!data || !(await bcryte.compare(password, data[0].password))) {
-                res.status(401).json({ msg: 'Email or Password incorrect' })
-            }
-            else {
-                const id = data[0].id;
-                const token = jwt.sign({ id }, 'mysecretkey', {
-                    expiresIn: '1d'
-                });
-                res.status(200).send({ msg: "Login user....", data, token })
-            }
-        });
+        else {
+            await db.query("SELECT * FROM user WHERE email=?", [email], async (err, data) => {
+                if (!data || !(await bcryte.compare(password, data[0].password))) {
+                    return res.status(401).json({ errors: [{ msg: 'Invalid Credentials' }] })
+                }
+                else {
+                    const id = data[0].id;
+                    const token = jwt.sign({ id }, 'mysecretkey', {
+                        expiresIn: '1d'
+                    });
+                    const user = data[0]
+                    res.status(200).send({ msg: "Login user....", user, token })
+                }
+
+            });
+        }
     } catch (error) {
         res.status(500).send("Server Error");
         console.error(error.message);

@@ -84,6 +84,25 @@ router.put('/status', isAgent, async (req, res) => {
     }
 });
 
+//-- Update reservation Date --//
+// Path reservations/date
+// methode put
+//user
+router.put('/status', isAuth, async (req, res) => {
+    const { id, dateReservation } = req.body;
+    try {
+        await db.query('update reservations set status=? where id=? and clienId=?', [id, dateReservation, req.user.id], (err, data) => {
+            if (err) throw err;
+            res.status(200).send({ msg: 'Date Updated...' });
+        })
+    } catch (error) {
+        res.status(500).send("Server Error");
+        console.error(error.message);
+    }
+});
+
+
+
 //-- Delete reservation status --//
 // Path reservations/delres
 // methode put
