@@ -7,6 +7,8 @@ import Dashboard from './Components/Admin/Dashboard';
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { getAuthUser } from './JS/Actions/authActions';
+import ListUsers from './Components/Admin/ListUsers';
+import AdminRoute from './Components/Routes/AdminRoutes';
 
 function App() {
   const dispatch = useDispatch()
@@ -16,9 +18,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar />
         <Route exact path='/' component={Home} />
-        <PrivateRoute path='/dashboard' component={Dashboard} />
+        <AdminRoute path='/dashboard' component={Dashboard} />
       </div>
     </Router>
   );

@@ -47,7 +47,7 @@ router.post("/register", async (req, res) => {
 //@private Admin
 router.get('/', isAdmin, async (req, res) => {
     try {
-        await db.query('select * from user', (err, data) => {
+        await db.query('select * from user where role !=?', ["admin"], (err, data) => {
             if (err) throw err;
             res.status(200).send({ msg: "Users list....", data })
         });

@@ -106,3 +106,25 @@ export const logout = () => (dispatch) => {
         type: LOGOUT_USER,
     });
 };
+
+//All users
+export const getAllUsers = () => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        }
+        const res = await axios.get('/users/', config);
+        dispatch({
+            type: GET_ALLUSER,
+            payload: res.data
+        });
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: AUTH_ERRORS,
+        });
+    }
+};
