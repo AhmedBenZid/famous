@@ -8,3 +8,4 @@ export const ADD_AGENT = 'ADD_AGENT';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_ALLUSER = 'GET_ALLUSER';
 export const DELETE_USER = 'DELETE_USER';
+export const GET_PACKS = 'GET_PACKS';

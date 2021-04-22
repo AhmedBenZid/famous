@@ -11,7 +11,7 @@ CREATE TABLE user(
     password varchar(100),
     address varchar(200),
     tel int(8),
-    role varchar(20) NOT NULL
+    role varchar(20) NOT NULL default ("user")
     )
     ;
 /*Create default admin in user*/
@@ -23,15 +23,22 @@ CREATE TABLE packs (
     label varchar(255),
     description varchar(255),
     price float(8),
-    materials varchar(255),
-    imgUrl varchar(255)
+    materials varchar(255)
 );
 
 /* Creation du table Reservations */
 CREATE TABLE reservations(
         id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
         dateReservation DATE,
-        status varchar(255),
+        dateCreation DATE default (current_date()),
+        status varchar(255) default ("pending"),
         clientId INT(4),
         packId INT(4)
 );
+
+/* Creation du table Favoris */
+CREATE TABLE favoris(
+    id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    clientId INT(4),
+    packId INT(4)
+)

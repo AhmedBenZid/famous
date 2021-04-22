@@ -1,11 +1,14 @@
 import React from 'react'
+import Carrousel from './Carrousel'
 import NavBar from './NavBar'
+import PacksGroup from './PacksGroup'
 
 const Home = () => {
     return (
         <div>
             <NavBar />
-            <h1>Home</h1>
+            <Carrousel />
+            <PacksGroup />
         </div>
     )
 }

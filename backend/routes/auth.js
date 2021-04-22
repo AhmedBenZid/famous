@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
                 firstName, lastName, email, password, adresse, tel
             ]);
 
-            await db.query("insert into user (firstName ,lastName, email, password,address,role) values (?,?,?,?,?,'user')",
+            await db.query("insert into user (firstName ,lastName, email, password,address) values (?,?,?,?,?)",
                 user, (err, data) => {
                     if (err) throw err;
                     res.status(200).json({ msg: "User registred...." });
@@ -126,10 +126,10 @@ router.put('/updateuser', isAuth, async (req, res) => {
 //path /users/
 //method delete
 //@private
-router.delete('/', isAdmin, async (req, res) => {
-    const { id } = req.body;
+router.delete('/:id', isAdmin, async (req, res) => {
+    const { id } = req.params;
     try {
-        await db.query('delete from user where id =?', id, (err, data) => {
+        db.query('delete from user where id =?', [id], (err, data) => {
             if (err) throw err;
             res.status(200).send({ msg: "User deleted...." })
         });
@@ -139,7 +139,7 @@ router.delete('/', isAdmin, async (req, res) => {
     }
 });
 
-//path /users/updateuser
+//path /users/addagent
 //method put
 //@public
 

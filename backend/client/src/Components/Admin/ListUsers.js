@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../JS/Actions/authActions';
+import AddAgent from './AddAgent';
 import UserRow from './UserRow';
 
 
@@ -13,6 +14,7 @@ const ListUsers = () => {
     return (
         <div className='container border b-2'>
             <h2 className="my-2">List of Users</h2>
+            <div className="dash-buttons m-2 d-flex justify-content-end"><AddAgent /></div>
             <table className="table">
                 <thead>
                     <tr>
@@ -26,9 +28,9 @@ const ListUsers = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        {users && users.map(user => <UserRow key={user.id} user={user} />)}
-                    </tr>
+
+                    {users && users.map(user => <UserRow key={user.id} user={user} />)}
+
                 </tbody>
             </table>
         </div >

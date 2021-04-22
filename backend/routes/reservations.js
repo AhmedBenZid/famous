@@ -13,7 +13,7 @@ router.post('/reservepack', isAuth, async (req, res) => {
     const clientId = req.user.id
     try {
         const arr = [dateReservation, clientId, packId];
-        await db.query('insert into reservations (dateReservation,status,clientId,packId)values(?,"Pending",?,?)', arr, (err, data) => {
+        await db.query('insert into reservations (dateReservation,clientId,packId)values(?,?,?)', arr, (err, data) => {
             if (err) throw err;
             res.status(200).send({ msg: 'Reservation Done with status Pending', arr });
         })

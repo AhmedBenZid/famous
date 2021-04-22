@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 import Login from './Login';
 import Register from './Register';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,8 +25,8 @@ function NavBar() {
             {(!isAuth) ? (<div >
                 <Login />
                 <Register /></div>) :
-                <div >
-                    <h4 className='text-white'> {user && user.firstname} {user && user.lastname}</h4> <span className='btn btn-danger' onClick={handleLogout}>Logout</span>
+                <div className="d-flex mr-2" >
+                    <Link to='/dashboard'><h4 className='text-white mr-2'> {user && user.email}</h4></Link> <span className='btn btn-danger' onClick={handleLogout}>Logout</span>
                 </div>}
 
         </Navbar >

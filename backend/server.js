@@ -19,6 +19,9 @@ app.use('/packs', require("./routes/pack"));
 //Use the Reservations Routes
 app.use('/reservations', require("./routes/reservations"));
 
+//Use the FAVORIS Routes
+app.use('/favoris', require("./routes/wishList"));
+
 
 
 

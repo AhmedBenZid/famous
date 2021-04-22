@@ -9,7 +9,6 @@ import {
     ADD_AGENT,
     UPDATE_USER,
     GET_ALLUSER,
-    DELETE_USER
 } from '../ActionsTypes/Types';
 
 //Set the user loading
@@ -27,6 +26,40 @@ export const registerUser = (newUser) => async (dispatch) => {
             type: REGISTER_USER,
             payload: res.data,
         });
+    } catch (error) {
+        console.dir(error);
+
+        const { errors, msg } = error.response.data;
+
+        if (Array.isArray(errors)) {
+            errors.forEach((err) => alert(err.msg));
+        }
+        console.log(errors);
+        if (msg) {
+            alert(msg);
+        }
+
+        dispatch({
+            type: AUTH_ERRORS,
+        });
+    }
+};
+
+// Add agent
+export const addAgent = (newAgent) => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        const res = await axios.post('/users/addagent', newAgent, config);
+        dispatch({
+            type: ADD_AGENT,
+            payload: res.data,
+        });
+        dispatch(getAllUsers())
     } catch (error) {
         console.dir(error);
 
@@ -86,7 +119,9 @@ export const loginUser = (formData) => async (dispatch) => {
         const { errors, msg } = error.response.data;
 
         if (Array.isArray(errors)) {
-            errors.forEach((err) => alert(err.msg));
+            errors.forEach((err) => <div class="alert alert-danger">
+                {err.msg}
+            </div>);
         }
         console.log(errors);
         if (msg) {
@@ -128,3 +163,22 @@ export const getAllUsers = () => async (dispatch) => {
         });
     }
 };
+
+//Delete user
+export const deleteUser = (id) => async (dispatch) => {
+    //headers
+    const config = {
+        headers: {
+            'x-auth-token': localStorage.getItem('token'),
+        },
+    }
+    try {
+        await axios.delete(`/users/${id}`, config);
+        dispatch(getAllUsers())
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: AUTH_ERRORS,
+        });
+    }
+}
