@@ -9,3 +9,5 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const GET_ALLUSER = 'GET_ALLUSER';
 export const DELETE_USER = 'DELETE_USER';
 export const GET_PACKS = 'GET_PACKS';
+export const GET_ALL_RESERVATION = 'GET_ALL_RESERVATION';
+export const GET_RESERVATION = 'GET_RESERVATION';

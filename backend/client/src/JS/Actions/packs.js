@@ -16,32 +16,47 @@ export const getPacks = () => async (dispatch) => {
     }
 }
 
-// export const addCircuit = (newCir) => async dispatch => {
-//     try {
-//         //headers
-//         const config = {
-//             headers: {
-//                 'x-auth-token': localStorage.getItem('token'),
-//             },
-//         };
-//         await axios.post('api/circuits/', newCir, config)
-//         dispatch(getCircuits)
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
+export const addPack = (newPack) => async dispatch => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        await axios.post('packs/addpack', newPack, config)
+        dispatch(getPacks)
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-// export const removeCircuit = (cirId) => async dispatch => {
-//     try {
-//         //headers
-//         const config = {
-//             headers: {
-//                 'x-auth-token': localStorage.getItem('token'),
-//             },
-//         };
-//         await axios.delete(`api/ciruits/${cirId}`, config);
-//         dispatch(getCircuits)
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
+export const updatePack = (editedPack) => async dispatch => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        await axios.put('/packs/editpack', editedPack, config)
+        dispatch(getPacks)
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const removePack = (packId) => async dispatch => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        await axios.delete(`/packs/delpack/${packId}`, config);
+        dispatch(getPacks)
+    } catch (error) {
+        console.error(error);
+    }
+}

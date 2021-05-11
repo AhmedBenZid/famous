@@ -71,7 +71,7 @@ const authReducer = (state = initialState, { type, payload }) => {
                 user: null,
                 users: null,
                 isLoading: false,
-                msg: null
+                msg: payload
             };
         default:
             return state;

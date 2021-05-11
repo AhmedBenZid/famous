@@ -74,12 +74,12 @@ router.put('/editpack', isAgent, async (req, res) => {
     }
 });
 
-//--get allPack--//
+//--delete Pack--//
 //Path /packs/delpack
 //Methode delete
 //Private Agent & Admin
-router.delete('/delpack', isAgent, async (req, res) => {
-    const { id } = req.body
+router.delete('/delpack/id', isAgent, async (req, res) => {
+    const { id } = req.params
     try {
         await db.query('delete from packs where id=?', [id], (err, data) => {
             if (err) throw err

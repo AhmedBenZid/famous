@@ -13,9 +13,16 @@ router.post('/reservepack', isAuth, async (req, res) => {
     const clientId = req.user.id
     try {
         const arr = [dateReservation, clientId, packId];
-        await db.query('insert into reservations (dateReservation,clientId,packId)values(?,?,?)', arr, (err, data) => {
-            if (err) throw err;
-            res.status(200).send({ msg: 'Reservation Done with status Pending', arr });
+        await db.query('select * from reservations where dateReservation = ? and clientId=? and packId=?', arr, (err, data) => {
+            if (data.lenght > 0) {
+                res.status(400).send({ msg: 'you already reserved this Offre' })
+            }
+            else {
+                db.query('insert into reservations (dateReservation,clientId,packId)values(?,?,?)', arr, (err, data) => {
+                    if (err) throw err;
+                    res.status(200).send({ msg: 'Reservation Done with status Pending', arr });
+                })
+            }
         })
     } catch (error) {
         res.status(500).send("Server Error");
@@ -29,7 +36,7 @@ router.post('/reservepack', isAuth, async (req, res) => {
 //private
 router.get('/myreserv', isAuth, async (req, res) => {
     try {
-        await db.query('select * from reservations where clientId=?', [req.user.id], (err, data) => {
+        await db.query('SELECT packs.label , reservations.* from reservations join packs on reservations.packId = packs.id where clientId=? order by dateReservation;', [req.user.id], (err, data) => {
             if (data.length === 0) {
                 return res.status(402).send({ msg: 'You dont have areservations yet...' });
             }

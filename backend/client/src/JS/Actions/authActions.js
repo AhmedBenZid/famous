@@ -40,8 +40,28 @@ export const registerUser = (newUser) => async (dispatch) => {
         }
 
         dispatch({
-            type: AUTH_ERRORS,
+            type: AUTH_ERRORS
         });
+    }
+};
+
+//Edite User
+export const editUser = (userId, editedUser) => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        await axios.put(`/users/updateuser/${userId}`, editedUser, config)
+        dispatch({
+            type: UPDATE_USER,
+            payload: editedUser
+        })
+        dispatch(getAuthUser())
+    } catch (error) {
+        console.error(error.message);
     }
 };
 
@@ -82,7 +102,6 @@ export const addAgent = (newAgent) => async (dispatch) => {
 // Get auth user
 export const getAuthUser = () => async (dispatch) => {
     dispatch(userLoading());
-
     try {
         //headers
         const config = {

@@ -10,12 +10,12 @@ CREATE TABLE user(
     email varchar(100)  NOT NULL UNIQUE,
     password varchar(100),
     address varchar(200),
-    tel int(8),
+    tel varchar(100)),
     role varchar(20) NOT NULL default ("user")
     )
     ;
 /*Create default admin in user*/
-INSERT INTO user (email,password,role) VALUES ("admin","$2a$10$dgYzs8plLOkR7lM0UHhQt.YfUVqvDWqH.5ovNp.IvRXT4DgX47jP2","admin");
+INSERT INTO user (firstname, lastname,email,password,role) VALUES ("admin","admin","admin","$2a$10$dgYzs8plLOkR7lM0UHhQt.YfUVqvDWqH.5ovNp.IvRXT4DgX47jP2","admin");
 
 /* Creation du table Pack */
 CREATE TABLE packs (

@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
                 firstName, lastName, email, password, adresse, tel
             ]);
 
-            await db.query("insert into user (firstName ,lastName, email, password,address) values (?,?,?,?,?)",
+            await db.query("insert into user (firstName ,lastName, email, password,address,tel) values (?,?,?,?,?,?)",
                 user, (err, data) => {
                     if (err) throw err;
                     res.status(200).json({ msg: "User registred...." });
@@ -62,7 +62,7 @@ router.get('/', isAdmin, async (req, res) => {
 router.get('/me', isAuth, async (req, res) => {
     const id = req.user.id
     try {
-        await db.query('select * from user where id =?', id, (err, data) => {
+        await db.query('select * from user where id =?', [id], (err, data) => {
             if (err) throw err;
             const user = data[0]
             res.status(200).send({ msg: "User info....", user })
@@ -109,9 +109,9 @@ router.post('/login', async (req, res) => {
 //method put
 //@public
 
-router.put('/updateuser', isAuth, async (req, res) => {
-    const { firstName, lastName, address, tel } = req.body
-    const arr = [firstName, lastName, address, tel, req.user.id];
+router.put('/updateuser/:userId', isAuth, async (req, res) => {
+    const { firstName, lastName, adresse, tel } = req.body
+    const arr = [firstName, lastName, adresse, tel, req.params.userId];
     try {
         await db.query('update user set firstName=?,lastName=?,address=?,tel=? where id=?', arr, (err, data) => {
             if (err) throw err;

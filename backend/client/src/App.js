@@ -1,14 +1,17 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux'
 import './App.css';
-import NavBar from './Components/Home/NavBar';
+import Login from './Components/Auth/Login';
+import Register from './Components/Auth/Register';
+import Home from './Components/Pages/Home/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './Components/Home/Home';
-import PrivateRoute from './Components/Routes/PrivateRoutes';
-import Dashboard from './Components/Admin/Dashboard';
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import AboutUs from './Components/Pages/About-Us/AboutUs';
+import ContactUs from './Components/Pages/Contact-Us/ContactUs';
+import Packs from './Components/Pages/Packs/Packs';
+import Dashboard from './Components/Pages/UserDashboard.js/Dashboard';
 import { getAuthUser } from './JS/Actions/authActions';
-import ListUsers from './Components/Admin/ListUsers';
-import AdminRoute from './Components/Routes/AdminRoutes';
+import PrivateRoute from './Components/Routes/PrivateRoute';
+import Gallery from './Components/Pages/Gallery/Gallery';
 
 function App() {
   const dispatch = useDispatch()
@@ -16,12 +19,21 @@ function App() {
     dispatch(getAuthUser())
   }, [])
   return (
-    <Router>
-      <div className="App">
-        <Route exact path='/' component={Home} />
-        <AdminRoute path='/dashboard' component={Dashboard} />
-      </div>
-    </Router>
+    <div className="body">
+
+      <Router>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route path="/about-us" component={AboutUs} />
+          <Route path="/contact-us" component={ContactUs} />
+          <PrivateRoute path="/packs" component={Packs} />
+          <Route path="/gallery" component={Gallery} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
