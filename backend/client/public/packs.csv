@@ -1,0 +1,7 @@
+id,label,description,price,materials
+1,"FORFAIT BASIC",./pics/picforfait/forfaitp.jpg,0,"Pack photos HD, Reportage vidÃ©o Full HD, Clips debut & fin, ClÃ© USB offerte"
+2,"FORFAIT STANDARD",./pics/picforfait/forfait.jpg,0,"Pack photos HD, Reportage vidÃ©o Full HD, Clips debut & fin, ClÃ© USB offerte, Tirage 80 Photos 15/21, Tableau mdf 30/40"
+3,"FORFAIT DIAMANT",./pics/picforfait/ForfaitD.jpg,0,"Pack photos HD, Reportage vidÃ©o Full HD, Clips debut & fin, ClÃ© USB offerte, Tirage 100 Photos 15/21, Tableau mdf 30/40, Accompagnement, Shooting exterieur"
+4,"FORFAIT PREMIUM",./pics/picforfait/forfaitp.jpg,0,"Accompagnement, Shooting exterieur, Pack photos HD, Reportage vidÃ©o Full HD, TPhotobook 30/30, Tableau mdf 60/40, Clips debut & fin, ClÃ© USB offerte"
+5,"FORFAIT SPECIAL",./pics/picforfait/forfaitS.jpg,0,"Accompagnement, Shooting exterieur, Shooting Hammam, Pack photos HD, Reportage vidÃ©o Full HD,Tirage 80 Photos 15/21, Photobook 30/30, 2 Tableau mdf 30/40, Clips debut & fin, ClÃ© USB offerte"
+6,"FORFAIT GOLD",./pics/picforfait/forfaitG.jpg,0,"Accompagnement, Shooting exterieur, Louma, Pack photos HD, Reportage vidÃ©o Full HD, Photobook 30/30, Tableau mdf 60/40, Clips debut & fin, ClÃ© USB offerte"

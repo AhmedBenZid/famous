@@ -12,6 +12,9 @@ import Dashboard from './Components/Pages/UserDashboard.js/Dashboard';
 import { getAuthUser } from './JS/Actions/authActions';
 import PrivateRoute from './Components/Routes/PrivateRoute';
 import Gallery from './Components/Pages/Gallery/Gallery';
+import Catgegory from './Components/Pages/Gallery/Category';
+import Album from './Components/Pages/Gallery/Album';
+// import Dashboard from './Components/Admin/Dashboard.js'
 
 function App() {
   const dispatch = useDispatch()
@@ -19,8 +22,7 @@ function App() {
     dispatch(getAuthUser())
   }, [])
   return (
-    <div className="body">
-
+    <div className="App">
       <Router>
         <Switch>
           <Route exact path='/' component={Home} />
@@ -29,10 +31,13 @@ function App() {
           <Route path="/about-us" component={AboutUs} />
           <Route path="/contact-us" component={ContactUs} />
           <PrivateRoute path="/packs" component={Packs} />
+          <Route exact path='/gallery/:title' component={Album} />
           <Route path="/gallery" component={Gallery} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
+
+      {/* <Dashboard /> */}
     </div>
   );
 }

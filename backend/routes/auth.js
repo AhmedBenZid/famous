@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 const isAuth = require('../middelware/isAuth');
 const isAgent = require('../middelware/isAgent');
 const isAdmin = require('../middelware/isAdmin');
+const gravatar = require('gravatar');
+const request= require('request'); 
+// 
 
 // Path /users/register
 // Methode Post
@@ -22,15 +25,16 @@ router.post("/register", async (req, res) => {
             } else if (data.length > 0) {
                 return res.status(400).send({ errors: [{ msg: 'User already exists' }] });
             };
+            const avatar = gravatar.url(email, { s: '200', r: 'jpg', d: 'mm' },true);
             let password = req.body.password;
 
             const salt = await bcryte.genSalt(10);
             password = await bcryte.hash(password, salt);
             let user = ([
-                firstName, lastName, email, password, adresse, tel
+                firstName, lastName, email, password, adresse, tel, avatar
             ]);
 
-            await db.query("insert into user (firstName ,lastName, email, password,address,tel) values (?,?,?,?,?,?)",
+            await db.query("insert into user (firstName ,lastName, email, password,address,tel,avatar) values (?,?,?,?,?,?,?)",
                 user, (err, data) => {
                     if (err) throw err;
                     res.status(200).json({ msg: "User registred...." });

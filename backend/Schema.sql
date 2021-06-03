@@ -10,8 +10,9 @@ CREATE TABLE user(
     email varchar(100)  NOT NULL UNIQUE,
     password varchar(100),
     address varchar(200),
-    tel varchar(100)),
-    role varchar(20) NOT NULL default ("user")
+    tel varchar(100),
+    role varchar(20) NOT NULL default ("user"),
+    avatar varchar(255)
     )
     ;
 /*Create default admin in user*/
@@ -33,12 +34,28 @@ CREATE TABLE reservations(
         dateCreation DATE default (current_date()),
         status varchar(255) default ("pending"),
         clientId INT(4),
-        packId INT(4)
+        packId INT(4),
+        FOREIGN KEY (clientId)
+        REFERENCES user(id),
+        FOREIGN KEY (packId)
+        REFERENCES packs(id)
 );
 
 /* Creation du table Favoris */
 CREATE TABLE favoris(
     id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     clientId INT(4),
-    packId INT(4)
-)
+    packId INT(4),
+        FOREIGN KEY (clientId)
+        REFERENCES user(id),
+        FOREIGN KEY (packId)
+        REFERENCES packs(id)
+);
+
+/* Creation table Gallery */
+CREATE TABLE album (
+    id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    imgUrl varchar(255),
+    title varchar(255),
+    category varchar(100)
+);

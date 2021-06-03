@@ -2,11 +2,13 @@ import React from 'react'
 
 const Main = () => {
     return (
-        <div className="masthead">
-            <div className="container">
-                <div className="masthead-subheading">La photographie est une spécialité dont nous sommes fiers et nous serons encore plus fiers de notre prochain travail avec vous.</div>
-                <button className='btn' style={{ color: "black", backgroundColor: '#dacd69' }}>Contactez-nous</button>
-            </div>
+        <div className="main">
+            <div>
+                <h1>La photographie
+</h1>
+                <p>
+                    Est une specialité dont nous somme fièrs est nous serons encore plus fièrs de notre prochain travail avec vous.
+</p></div>
         </div>
     )
 }

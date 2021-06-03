@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../JS/Actions/authActions';
-import { Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import DroppedNav from './DroppedNav';
+
 const NavBar = () => {
 
     const user = useSelector(state => state.authReducer.user)
@@ -33,45 +35,33 @@ const NavBar = () => {
         }
     }, [])
 
-    const logged = (
-        <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle nav caret>
-                {user && user.email}
-            </DropdownToggle>
-            <DropdownMenu className="bg-dark">
-                <DropdownItem header><span className="nav-item"><Link className="nav-link js-scroll-trigger" to="/dashboard">Profile</Link></span></DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem><span className="nav-item "><a className="nav-link js-scroll-trigger text-danger" onClick={handleLogout}>Se déconnecter</a></span>
-                </DropdownItem>
-            </DropdownMenu>
-        </Dropdown >
-    )
-    return (
-        <nav className=' navbar navbar-expand-lg navbar-dark fixed-top '
-            style={navBackground ? { backgroundColor: "#000", transition: '1s ease', height: '75px' } : { transition: '1s ease' }} id="mainNav">
-            <div className="container">
-                <a className=" js-scroll-trigger" href="/"><img src="./logo.png" alt="" height="95" width='200' /></a>
-                {/* <button className="navbar-toggler navbar-toggler-right" type="button">
-                    Menu
-                <i className="fas fa-bars ml-1"></i>
-                </button> */}
-                <div >
-                    <ul className="navbar-nav text-uppercase ml-auto">
-                        <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/">Home</Link></li>
-                        <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/packs">Packs</Link></li>
-                        <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/gallery">Gallery</Link></li>
-                        <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/about-us">About-Us</Link></li>
-                        <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/contact-us">Contact-Us</Link></li>
-                        {!isAuth ?
-                            <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/login">Login</Link></li>
-                            : logged
 
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    )
+
+    return (
+        <div className=" homenav" >
+            <Navbar color="faded" style={(navBackground) ? { background: "hsla(0, 0%, 0%, 0.678)", transition: '1s ease', right: '45px', left: '45px' } : { transition: '1s ease', right: '45px', left: '45px' }}>
+                <NavbarBrand href="/" className="mr-auto"><img src='./logo.png' alt='logo entreprise' width='126px' height='84px' /></NavbarBrand>
+                {/* <NavItem>
+                    <NavLink href="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/packs">Forfait</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/gallery">Gallery</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/about-us">About-Us</NavLink>
+                </NavItem> */}
+                {(!isAuth ? <NavItem>
+                    <a href='/login'><img src='./pics/icones/user1.png' alt="user logo" /></a>
+                </NavItem> : <NavItem>
+                    <a href='/login'><img className="avatar" src={(user && user.avatar) ? user.avatar : './pics/icones/user1.png'} alt="user avatar" /></a>
+                </NavItem>)}
+                <DroppedNav />
+            </Navbar>
+        </div>
+    );
 }
 
 export default NavBar

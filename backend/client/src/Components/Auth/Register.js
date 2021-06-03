@@ -1,55 +1,13 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import NavBar from '../Layouts/NavBar';
+import Socail from '../Layouts/Socail';
 import { useDispatch } from "react-redux"
 import { registerUser } from '../../JS/Actions/authActions';
 import { useHistory } from 'react-router-dom'
 import { Alert } from 'reactstrap';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="/">
-                Famous-Pictures.tn
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
 
 export default function Register() {
-    const classes = useStyles();
 
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -57,6 +15,8 @@ export default function Register() {
     const [adresse, setAdresse] = useState('');
     const [tel, setTel] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [confirm, setConfirm] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory();
 
@@ -67,6 +27,7 @@ export default function Register() {
         setAdresse('');
         setTel('');
         setPassword('');
+        setPassword2('')
     }
 
     const handleSave = () => {
@@ -78,7 +39,7 @@ export default function Register() {
             tel,
             password
         };
-        if (!email || !firstName || !lastName || !password) {
+        if (!email || !firstName || !lastName || (!password || (password !== password2))) {
             return alert("champ vide")
         }
         else {
@@ -90,122 +51,41 @@ export default function Register() {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Register
-        </Typography>
-                <form className={classes.form} onSubmit={handleSave}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                aria-required
-                                fullWidth
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                label="First Name"
-                                autoFocus
+        <div>
+            <NavBar />
+            <Socail />
+            <div className='login register'>
+                <form className='formlogin' onSubmit={handleSave}>
+                    <h2>Sign In</h2>
+                    <div className='inputgroup-row'>
 
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                autoComplete="lname"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="adresse"
-                                label="Adresse"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="adresse"
-                                value={adresse}
-                                onChange={(e) => setAdresse(e.target.value)}
+                        <input aria-required type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className='forminput' spacing={1} placeholder='Prénom' />
+                        <input aria-required type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className='forminput' spacing={1} placeholder='Nom' />
+                    </div>
+                    <div className='inputgroup'>
+                        <img src='./pics/icones/mail.png' width='32px' height='32px ' />
+                        <input aria-required type="text" value={email} onChange={(e) => setEmail(e.target.value)} className='forminput' spacing={1} placeholder='Adresse Email' />
+                    </div>
+                    <div className='inputgroup'>
+                        <img src='./pics/icones/lock.png' width='32px' height='32px ' />
+                        <input aria-required type="password" value={password} onChange={e => setPassword(e.target.value)} className='forminput' spacing={1} placeholder='Password' />
+                    </div>
+                    <div className='inputgroup'>
+                        <img src='./pics/icones/lock.png' width='32px' height='32px ' />
+                        <input aria-required type="password" value={password2} onChange={e => setPassword2(e.target.value)} className='forminput' spacing={1} placeholder='Confirm Password' />
+                    </div>
+                    <div className='checkinput'>
+                        <div>
+                            <input type='checkbox' className='check' checked={confirm} onChange={e => setConfirm(!confirm)} label='Remember me' /><p>I Agree with <span>privecy</span>  and <span>policy</span></p></div>
+                    </div>
+                    {(confirm) ? <button >Sign Up</button> : <button disabled >Sign Up</button>}
 
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="tel"
-                                label="Phone Number"
-                                value={tel}
-                                onChange={(e) => setTel(e.target.value)}
-                                autoComplete="lname"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value.trim().toLowerCase())}
-                                autoComplete="email"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                        </Grid>
-                        {/* <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
-                        </Grid> */}
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Register
-          </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link href="/login" variant="body2">
-                                Already have an account? Sign in
-              </Link>
-                        </Grid>
-                    </Grid>
+                    <div className='loginfooter'>
+                        <p>Already have an Account ? <a href='/login'>Sign In</a></p>
+                    </div>
                 </form>
+
             </div>
-            <Box mt={5}>
-                <Copyright />
-            </Box>
-        </Container>
+        </div>
     );
 }

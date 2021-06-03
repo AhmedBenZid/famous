@@ -56,3 +56,18 @@ export const addReservation = (data) => async (dispatch) => {
         console.error(error);
     }
 }
+
+export const delReservation = (id) => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        await axios.delete('/reservations/delres', id, config);
+        dispatch(getUserReservation)
+    } catch (error) {
+        console.error(error);
+    }
+}
